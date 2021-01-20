@@ -1,10 +1,9 @@
 import React, { Suspense } from 'react';
-import './App.css';
 import { Button, TextField } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
 import { Provider, useSelector} from 'react-redux'
-
 import {store, incremented} from './store'
+import './App.css';
 
 const SelectCounter = (state:any) => state.value
 
