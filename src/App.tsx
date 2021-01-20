@@ -1,40 +1,50 @@
-import React, { useState, useEffect } from 'react';
-import logo from './logo.svg';
+import React, { Suspense } from 'react';
 import './App.css';
+import { Button, TextField } from '@material-ui/core';
+import { Autocomplete } from '@material-ui/lab';
+import { Provider, useSelector} from 'react-redux'
 
+import {store, incremented} from './store'
+
+const SelectCounter = (state:any) => state.value
+
+import { fetchProfileData } from "./fakeApi";
+
+const resource = fetchProfileData();
 interface AppProps {}
 
 function App({}: AppProps) {
-  // Create the count state.
-  const [count, setCount] = useState(0);
-  // Create the counter (+1 every second).
-  useEffect(() => {
-    const timer = setTimeout(() => setCount(count + 1), 1000);
-    return () => clearTimeout(timer);
-  }, [count, setCount]);
-  // Return the App component.
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <p>
-          Page has been open for <code>{count}</code> seconds.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </p>
-      </header>
+      <Provider store={store}>
+      <Suspense
+        fallback={<h1>Loading posts...</h1>}
+      >
+        <ProfileTimeline />
+      </Suspense>
+        <Button color="primary" onClick={()=>{store.dispatch(incremented())}}>Material UI</Button>
+      </Provider>
     </div>
+  );
+}
+function ProfileTimeline() {
+  const counter = useSelector(SelectCounter)
+  // Try to read posts, although they might not have loaded yet
+  const posts = resource.posts.read();
+  return (
+    <ul>
+      <pre>{JSON.stringify(counter, null, 2)}</pre>
+      {Object.keys(posts).slice(0,4).map((post:any) => (
+        <li key={post}>{post}</li>
+      ))}
+      <Autocomplete
+  id="breed"
+  options={Object.keys(posts)}
+  getOptionLabel={(option:any) => option}
+  style={{ width: 300 }}
+  renderInput={(params) => <TextField {...params} label="Breed" variant="outlined" />}
+/>
+    </ul>
   );
 }
 
