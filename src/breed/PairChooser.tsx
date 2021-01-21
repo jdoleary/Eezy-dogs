@@ -1,7 +1,7 @@
 
 import React from 'react'
 import { useSelector } from 'react-redux';
-import { Grid, Input, IconButton } from '@material-ui/core';
+import { Grid, Box, Input, IconButton } from '@material-ui/core';
 import AddCircle from '@material-ui/icons/AddCircle';
 
 import type { State } from '../store';
@@ -20,9 +20,11 @@ export default function PairChooser({ breed, includeAddBtn }: PairChooserProps) 
       <Selector name="Breed" options={Object.keys(breeds)} />
       <Selector name="SubBreed" options={breeds[breed]} />
       <Input></Input>
-      {includeAddBtn && <IconButton color="primary" aria-label="upload picture" component="span">
-        <AddCircle />
-      </IconButton>}
+      <Box component="div" visibility={includeAddBtn ? 'visible' : 'hidden'}>
+        <IconButton  color="primary" aria-label="upload picture" component="span">
+          <AddCircle />
+        </IconButton>
+      </Box>
     </Grid>
   );
 }
