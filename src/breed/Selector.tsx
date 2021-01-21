@@ -1,19 +1,19 @@
 import React from 'react';
 import { TextField } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
-interface BreedSelectorProps {
+interface SelectorProps {
   name: string;
-  breeds: string[];
+  options: string[];
 }
-export default function BreedSelector({
+export default function Selector({
   name,
-  breeds = [],
-}: BreedSelectorProps) {
+  options = [],
+}: SelectorProps) {
   return (
     <Autocomplete
       id={name.toLowerCase()}
-      disabled={breeds.length === 0}
-      options={breeds}
+      disabled={options.length === 0}
+      options={options}
       getOptionLabel={(option: string) => option}
       style={{ width: 300 }}
       renderInput={(params) => (
