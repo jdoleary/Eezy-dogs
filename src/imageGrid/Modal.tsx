@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import {
   Dialog,
   GridList,
@@ -7,27 +7,18 @@ import {
   CircularProgress,
 } from '@material-ui/core';
 import { useSelector } from 'react-redux';
-import { SelectImages, SelectLoading, SelectError } from '../store';
+import { SelectImages, SelectLoading, SelectError, store, clearImages } from '../store';
 import { Alert } from '@material-ui/lab';
 
 export default function Modal() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const images = useSelector(SelectImages);
   const loading = useSelector(SelectLoading);
   const error = useSelector(SelectError);
-  useEffect(() => {
-    if (loading.images) {
-      setIsModalOpen(true);
-    }
-    if (images.length !== 0) {
-      setIsModalOpen(true);
-    }
-  }, [images, loading]);
   return (
     <Dialog
-      open={isModalOpen}
+      open={!!images.length}
       onClose={() => {
-        setIsModalOpen(false);
+        store.dispatch(clearImages());
       }}
     >
       <Box p={2}>
