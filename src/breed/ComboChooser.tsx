@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { Grid, Box, TextField, IconButton } from '@material-ui/core';
 import AddCircle from '@material-ui/icons/AddCircle';
 import RemoveCircle from '@material-ui/icons/RemoveCircle';
+import NotInterested from '@material-ui/icons/NotInterested';
 
 import {
   addCombo,
@@ -28,70 +29,89 @@ export default function ComboChooser({
 }: ComboChooserProps) {
   const { breed, subBreed, count } = combo;
   const breeds = useSelector(SelectBreeds);
+  const isFirstAndOnly = index === 0 && lastInList
   return (
     <Box m={2}>
-      <Grid
-        container
-        direction="row"
-        justify="space-between"
-        alignItems="center"
-      >
-        <Selector
-          name="Breed"
-          options={Object.keys(breeds)}
-          value={breed}
-          onChange={(_event: any, breed: string) => {
-            store.dispatch(changeCombo({ combo: { ...combo, breed }, index }));
-          }}
-        />
-        <Selector
-          name="SubBreed"
-          options={breeds[breed]}
-          value={subBreed}
-          onChange={(_event: any, subBreed: string) => {
-            store.dispatch(
-              changeCombo({ combo: { ...combo, subBreed }, index }),
-            );
-          }}
-        />
-        <TextField
-          variant="outlined"
-          type="number"
-          value={count}
-          onChange={(event: any) => {
-            store.dispatch(
-              changeCombo({
-                combo: { ...combo, count: event.target.value },
-                index,
-              }),
-            );
-          }}
-        ></TextField>
-        <Box component="div">
-          {lastInList ? (
-            <IconButton
-              color="primary"
-              aria-label="add row"
-              component="span"
-              onClick={() => {
-                store.dispatch(addCombo({ breed: '', subBreed: '', count: 1 }));
+      <Grid container
+      justify='flex-start'>
+        <Grid item>
+          <Selector
+            name="Breed"
+            options={Object.keys(breeds)}
+            value={breed}
+            onChange={(_event: any, breed: string) => {
+              store.dispatch(
+                changeCombo({ combo: { ...combo, breed }, index }),
+              );
+            }}
+          />
+        </Grid>
+        <Grid item>
+          <Selector
+            name="SubBreed"
+            options={breeds[breed]}
+            value={subBreed}
+            onChange={(_event: any, subBreed: string) => {
+              store.dispatch(
+                changeCombo({ combo: { ...combo, subBreed }, index }),
+              );
+            }}
+          />
+        </Grid>
+        <Grid item>
+          <Box width={'100px'}>
+            <TextField
+              variant="outlined"
+              type="number"
+              value={count}
+              onChange={(event: any) => {
+                store.dispatch(
+                  changeCombo({
+                    combo: { ...combo, count: event.target.value },
+                    index,
+                  }),
+                );
               }}
-            >
-              <AddCircle />
-            </IconButton>
-          ) : (
-            <IconButton
-              color="primary"
-              aria-label="remove row"
-              component="span"
-              onClick={() => {
-                store.dispatch(removeCombo(index));
-              }}
-            >
-              <RemoveCircle />
-            </IconButton>
-          )}
-        </Box>
+            ></TextField>
+          </Box>
+        </Grid>
+        <Grid item>
+          <Box component="div" display="flex" flexWrap="nowrap">
+            <Box component="div">
+              <IconButton
+                color="primary"
+                aria-label={isFirstAndOnly ? 'clear row': "remove row"}
+                component="span"
+                onClick={() => {
+                  // Remove the current combo
+                  store.dispatch(removeCombo(index));
+                  if (isFirstAndOnly) {
+                    // If removing the first and only combo, replace it with a new, empty one
+                    store.dispatch(
+                      addCombo({ breed: '', subBreed: '', count: 1 }),
+                    );
+                  }
+                }}
+              >
+                {isFirstAndOnly ? <NotInterested/>:<RemoveCircle />}
+              </IconButton>
+            </Box>
+            <Box component="div" visibility={lastInList ? 'visible' : 'hidden'}>
+              <IconButton
+                color="primary"
+                aria-label="add row"
+                component="span"
+                onClick={() => {
+                  store.dispatch(
+                    addCombo({ breed: '', subBreed: '', count: 1 }),
+                  );
+                }}
+              >
+                <AddCircle />
+              </IconButton>
+            </Box>
+          </Box>
+        </Grid>
       </Grid>
     </Box>
   );
