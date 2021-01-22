@@ -31,6 +31,8 @@ const breedSlice = createSlice({
       const { combo, index } = payload;
       state.combos = state.combos.map((p, i) => {
         if (i === index) {
+          // Clamp value between 1 and 100 inclusive
+          combo.count = Math.min(Math.max(combo.count, 1), 100)
           return combo;
         }
         return p;
