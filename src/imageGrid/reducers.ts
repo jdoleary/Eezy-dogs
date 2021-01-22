@@ -7,7 +7,6 @@ export default {
     state: State,
     action: PayloadAction<string[]>,
   ) => {
-      console.log('images',action.payload,  action)
-    state.images = action.payload;
+    state.images = [...state.images, ...action.payload]
   },
 };

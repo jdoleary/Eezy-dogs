@@ -20,19 +20,28 @@ function App({}: AppProps) {
     <div className="App">
       <Provider store={store}>
         <Choosers />
-        <Button
-          color="primary"
-          onClick={() => {
-            // setIsModalOpen(true);
-          store.dispatch(fetchImages({breed:'african',subBreed:'',count:3}));
-          }}
-        >
-          Generate
-        </Button>
+        <GenerateButton/>
         <Modal/>
       </Provider>
     </div>
   );
+}
+function GenerateButton() {
+  const pairs = useSelector(SelectPairs);
+  return (
+        <Button
+          color="primary"
+          onClick={() => {
+            // setIsModalOpen(true);
+            for(let pair of pairs){
+              store.dispatch(fetchImages(pair));
+            }
+          }}
+        >
+          Generate
+        </Button>
+
+  )
 }
 function Choosers() {
   const pairs = useSelector(SelectPairs);
