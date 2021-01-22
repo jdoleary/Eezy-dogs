@@ -18,9 +18,7 @@ export interface Pair {
 const initialState: State = {
   breeds: undefined,
   images: [],
-  pairs: [
-    { breed: '', subBreed: '', count: 1 },
-  ],
+  pairs: [{ breed: '', subBreed: '', count: 1 }],
 };
 const breedSlice = createSlice({
   name: 'eezy-demo',

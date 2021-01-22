@@ -7,10 +7,10 @@ export default function Modal() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const images = useSelector(SelectImages);
   useEffect(() => {
-    if(images.length !== 0){
-      setIsModalOpen(true)
+    if (images.length !== 0) {
+      setIsModalOpen(true);
     }
-  }, [images])
+  }, [images]);
   return (
     <Dialog
       open={isModalOpen}
