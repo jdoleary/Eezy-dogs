@@ -19,7 +19,7 @@ export default function Selector({
       disabled={options.length === 0}
       options={options}
       getOptionLabel={(option: string) => option}
-      value={value}
+      value={value || null}
       onChange={onChange}
       style={{ width: 300 }}
       renderInput={(params) => (
