@@ -47,12 +47,13 @@ function Choosers() {
   return (
     <Container maxWidth="md">
       {combos.map((p, i) => {
+        const key = p.breed ? `${p.breed}-${p.subBreed}` : i;
         return (
           <BreedComboChooser
-            key={`${p.breed}-${p.subBreed}`}
+            key={key}
             combo={p}
             index={i}
-            includeAddBtn={i === combos.length - 1}
+            lastInList={i === combos.length - 1}
           />
         );
       })}

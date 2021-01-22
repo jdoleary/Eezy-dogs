@@ -2,20 +2,28 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Grid, Box, TextField, IconButton } from '@material-ui/core';
 import AddCircle from '@material-ui/icons/AddCircle';
+import RemoveCircle from '@material-ui/icons/RemoveCircle';
 
-import { addCombo, changeCombo, Combo, State, store } from '../store';
+import {
+  addCombo,
+  removeCombo,
+  changeCombo,
+  Combo,
+  State,
+  store,
+} from '../store';
 import Selector from './Selector';
 
 const SelectBreeds = (state: State) => state.breeds || {};
 
 interface ComboChooserProps {
   combo: Combo;
-  includeAddBtn: boolean;
+  lastInList: boolean;
   index: number;
 }
 export default function ComboChooser({
   combo,
-  includeAddBtn,
+  lastInList,
   index,
 }: ComboChooserProps) {
   const { breed, subBreed, count } = combo;
@@ -41,7 +49,9 @@ export default function ComboChooser({
           options={breeds[breed]}
           value={subBreed}
           onChange={(_event: any, subBreed: string) => {
-            store.dispatch(changeCombo({ combo: { ...combo, subBreed }, index }));
+            store.dispatch(
+              changeCombo({ combo: { ...combo, subBreed }, index }),
+            );
           }}
         />
         <TextField
@@ -57,17 +67,30 @@ export default function ComboChooser({
             );
           }}
         ></TextField>
-        <Box component="div" visibility={includeAddBtn ? 'visible' : 'hidden'}>
-          <IconButton
-            color="primary"
-            aria-label="upload picture"
-            component="span"
-            onClick={() => {
-              store.dispatch(addCombo({ breed: '', subBreed: '', count: 1 }));
-            }}
-          >
-            <AddCircle />
-          </IconButton>
+        <Box component="div">
+          {lastInList ? (
+            <IconButton
+              color="primary"
+              aria-label="add row"
+              component="span"
+              onClick={() => {
+                store.dispatch(addCombo({ breed: '', subBreed: '', count: 1 }));
+              }}
+            >
+              <AddCircle />
+            </IconButton>
+          ) : (
+            <IconButton
+              color="primary"
+              aria-label="remove row"
+              component="span"
+              onClick={() => {
+                store.dispatch(removeCombo(index));
+              }}
+            >
+              <RemoveCircle />
+            </IconButton>
+          )}
         </Box>
       </Grid>
     </Box>

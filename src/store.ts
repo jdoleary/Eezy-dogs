@@ -39,6 +39,12 @@ const breedSlice = createSlice({
     addCombo: (state: State, { payload }: { payload: Combo }) => {
       state.combos = state.combos.concat(payload);
     },
+    removeCombo: (state: State, { payload: index }: { payload: number }) => {
+      state.combos = [
+        ...state.combos.slice(0, index),
+        ...state.combos.slice(index + 1),
+      ];
+    },
     clearImages: (state: State) => {
       state.images = [];
     },
@@ -48,7 +54,12 @@ const breedSlice = createSlice({
     ...imageGridReducers,
   },
 });
-export const { addCombo, changeCombo, clearImages } = breedSlice.actions;
+export const {
+  addCombo,
+  removeCombo,
+  changeCombo,
+  clearImages,
+} = breedSlice.actions;
 
 export const store = configureStore({
   reducer: breedSlice.reducer,
