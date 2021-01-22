@@ -3,22 +3,22 @@ import { useSelector } from 'react-redux';
 import { Grid, Box, TextField, IconButton } from '@material-ui/core';
 import AddCircle from '@material-ui/icons/AddCircle';
 
-import { addPair, changePair, Pair, State, store } from '../store';
+import { addCombo, changeCombo, Combo, State, store } from '../store';
 import Selector from './Selector';
 
 const SelectBreeds = (state: State) => state.breeds || {};
 
-interface PairChooserProps {
-  pair: Pair;
+interface ComboChooserProps {
+  combo: Combo;
   includeAddBtn: boolean;
   index: number;
 }
-export default function PairChooser({
-  pair,
+export default function ComboChooser({
+  combo,
   includeAddBtn,
   index,
-}: PairChooserProps) {
-  const { breed, subBreed, count } = pair;
+}: ComboChooserProps) {
+  const { breed, subBreed, count } = combo;
   const breeds = useSelector(SelectBreeds);
   return (
     <Box m={2}>
@@ -33,7 +33,7 @@ export default function PairChooser({
           options={Object.keys(breeds)}
           value={breed}
           onChange={(_event: any, breed: string) => {
-            store.dispatch(changePair({ pair: { ...pair, breed }, index }));
+            store.dispatch(changeCombo({ combo: { ...combo, breed }, index }));
           }}
         />
         <Selector
@@ -41,7 +41,7 @@ export default function PairChooser({
           options={breeds[breed]}
           value={subBreed}
           onChange={(_event: any, subBreed: string) => {
-            store.dispatch(changePair({ pair: { ...pair, subBreed }, index }));
+            store.dispatch(changeCombo({ combo: { ...combo, subBreed }, index }));
           }}
         />
         <TextField
@@ -50,8 +50,8 @@ export default function PairChooser({
           value={count}
           onChange={(event: any) => {
             store.dispatch(
-              changePair({
-                pair: { ...pair, count: event.target.value },
+              changeCombo({
+                combo: { ...combo, count: event.target.value },
                 index,
               }),
             );
@@ -63,7 +63,7 @@ export default function PairChooser({
             aria-label="upload picture"
             component="span"
             onClick={() => {
-              store.dispatch(addPair({ breed: '', subBreed: '', count: 1 }));
+              store.dispatch(addCombo({ breed: '', subBreed: '', count: 1 }));
             }}
           >
             <AddCircle />

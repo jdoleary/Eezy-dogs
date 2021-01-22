@@ -6,11 +6,11 @@ import imageGridReducers from './imageGrid/reducers';
 export interface State {
   breeds?: BreedMap;
   images: string[];
-  pairs: Pair[];
+  combos: Combo[];
 }
-export const SelectPairs = (state: State): Pair[] => state.pairs;
+export const SelectCombos = (state: State): Combo[] => state.combos;
 export const SelectImages = (state: State): string[] => state.images;
-export interface Pair {
+export interface Combo {
   breed: string;
   subBreed: string;
   count: number;
@@ -18,26 +18,26 @@ export interface Pair {
 const initialState: State = {
   breeds: undefined,
   images: [],
-  pairs: [{ breed: '', subBreed: '', count: 1 }],
+  combos: [{ breed: '', subBreed: '', count: 1 }],
 };
 const breedSlice = createSlice({
   name: 'eezy-demo',
   initialState,
   reducers: {
-    changePair: (
+    changeCombo: (
       state: State,
-      { payload }: { payload: { pair: Pair; index: number } },
+      { payload }: { payload: { combo: Combo; index: number } },
     ) => {
-      const { pair, index } = payload;
-      state.pairs = state.pairs.map((p, i) => {
+      const { combo, index } = payload;
+      state.combos = state.combos.map((p, i) => {
         if (i === index) {
-          return pair;
+          return combo;
         }
         return p;
       });
     },
-    addPair: (state: State, { payload }: { payload: Pair }) => {
-      state.pairs = state.pairs.concat(payload);
+    addCombo: (state: State, { payload }: { payload: Combo }) => {
+      state.combos = state.combos.concat(payload);
     },
     clearImages: (state: State) => {
       state.images = [];
@@ -48,7 +48,7 @@ const breedSlice = createSlice({
     ...imageGridReducers,
   },
 });
-export const { addPair, changePair, clearImages } = breedSlice.actions;
+export const { addCombo, changeCombo, clearImages } = breedSlice.actions;
 
 export const store = configureStore({
   reducer: breedSlice.reducer,

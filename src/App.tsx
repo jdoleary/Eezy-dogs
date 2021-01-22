@@ -2,10 +2,10 @@ import React, { useEffect } from 'react';
 import { Button, Container } from '@material-ui/core';
 
 import { Provider, useSelector } from 'react-redux';
-import { store, SelectPairs, clearImages } from './store';
+import { store, SelectCombos, clearImages } from './store';
 import { fetchAllBreeds } from './breed/actions';
 import { fetchImages } from './imageGrid/actions';
-import BreedPairChooser from './breed/PairChooser';
+import BreedComboChooser from './breed/ComboChooser';
 import Modal from './imageGrid/Modal';
 import './App.css';
 
@@ -26,15 +26,15 @@ function App({}: AppProps) {
   );
 }
 function GenerateButton() {
-  const pairs = useSelector(SelectPairs);
+  const combos = useSelector(SelectCombos);
   return (
     <Button
       color="primary"
       onClick={() => {
         // Remove previous images
         store.dispatch(clearImages());
-        for (let pair of pairs) {
-          store.dispatch(fetchImages(pair));
+        for (let combo of combos) {
+          store.dispatch(fetchImages(combo));
         }
       }}
     >
@@ -43,16 +43,16 @@ function GenerateButton() {
   );
 }
 function Choosers() {
-  const pairs = useSelector(SelectPairs);
+  const combos = useSelector(SelectCombos);
   return (
     <Container maxWidth="md">
-      {pairs.map((p, i) => {
+      {combos.map((p, i) => {
         return (
-          <BreedPairChooser
+          <BreedComboChooser
             key={`${p.breed}-${p.subBreed}`}
-            pair={p}
+            combo={p}
             index={i}
-            includeAddBtn={i === pairs.length - 1}
+            includeAddBtn={i === combos.length - 1}
           />
         );
       })}
