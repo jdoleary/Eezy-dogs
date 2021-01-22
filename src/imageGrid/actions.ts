@@ -1,8 +1,13 @@
 import { createAsyncThunk, AsyncThunk } from '@reduxjs/toolkit';
 import type { Combo } from 'src/store';
 
+interface Response {
+  status: string;
+  message: string[];
+}
+
 export const fetchImages: AsyncThunk<
-  { status: string; message: string[] } | { message: string },
+  Response | { message: string },
   Combo[],
   {}
 > = createAsyncThunk('imageGrid', async (combos: Combo[]) => {
@@ -11,7 +16,7 @@ export const fetchImages: AsyncThunk<
       message: 'Please specify a breed before generating',
     });
   }
-  const imagesNonFlat: { message: string[] }[] = await Promise.all(
+  const responses: Response[] = await Promise.all(
     combos.map((combo) =>
       fetch(
         `https://dog.ceo/api/breed/${combo.breed}${
@@ -22,12 +27,11 @@ export const fetchImages: AsyncThunk<
   );
   return {
     status: 'success',
-    message: imagesNonFlat.reduce<string[]>(
-      (flattenedImages, arrayOfImages) => [
-        ...flattenedImages,
-        ...arrayOfImages.message,
-      ],
-      [],
-    ),
+    message: responses.reduce<string[]>((flattenedImagePaths, response) => {
+      if (response.status !== 'success') {
+        return flattenedImagePaths;
+      }
+      return [...flattenedImagePaths, ...response.message];
+    }, []),
   };
 });

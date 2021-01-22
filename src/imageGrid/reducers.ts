@@ -28,7 +28,12 @@ export default {
   ) => {
     const { status, message } = action.payload;
     if (status === 'success') {
-      if (isStringArray(message)) {
+      if (message.length === 0) {
+        state.error = {
+          ...state.error,
+          images: 'Empty data returned, please adjust your choices.',
+        };
+      } else if (isStringArray(message)) {
         state.images = [...state.images, ...message];
         // On successremove any errors
         state.error = { ...state.error, images: '' };
