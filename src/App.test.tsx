@@ -1,12 +1,11 @@
-import * as React from 'react';
-import { render } from '@testing-library/react';
-import { expect } from 'chai';
+import React from 'react';
+import {describe, expect, it } from '@jest/globals'
+import renderer from 'react-test-renderer';
 import App from './App';
 
 describe('<App>', () => {
   it('renders learn react link', () => {
-    const { getByText } = render(<App />);
-    const linkElement = getByText(/learn react/i);
-    expect(document.body.contains(linkElement));
+    const component = renderer.create(<App />);
+    expect(component.toJSON()).toMatchSnapshot()
   });
 });
