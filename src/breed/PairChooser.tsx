@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Grid, Box, Input, IconButton } from '@material-ui/core';
+import { Grid, Box, TextField, IconButton } from '@material-ui/core';
 import AddCircle from '@material-ui/icons/AddCircle';
 
 import { addPair, changePair, Pair, State, store } from '../store';
@@ -44,7 +44,9 @@ export default function PairChooser({
             store.dispatch(changePair({ pair: { ...pair, subBreed }, index }));
           }}
         />
-        <Input
+        <TextField
+          variant='outlined'
+          type='number'
           value={count}
           onChange={(event: any) => {
             store.dispatch(
@@ -54,7 +56,7 @@ export default function PairChooser({
               }),
             );
           }}
-        ></Input>
+        ></TextField>
         <Box component="div" visibility={includeAddBtn ? 'visible' : 'hidden'}>
           <IconButton
             color="primary"
