@@ -6,6 +6,7 @@ import { store, SelectCombos, clearImages } from './store';
 import { fetchAllBreeds } from './breed/actions';
 import { fetchImages } from './imageGrid/actions';
 import BreedComboChooser from './breed/ComboChooser';
+import WithBreeds from './breed/WithBreeds';
 import Modal from './imageGrid/Modal';
 import './App.css';
 
@@ -49,7 +50,8 @@ function Choosers() {
       {combos.map((p, i) => {
         const key = p.breed ? `${p.breed}-${p.subBreed}` : i;
         return (
-          <BreedComboChooser
+          <WithBreeds
+            WrappedComponent={BreedComboChooser}
             key={key}
             combo={p}
             index={i}

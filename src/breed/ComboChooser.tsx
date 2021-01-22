@@ -1,39 +1,30 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { Grid, Box, TextField, IconButton } from '@material-ui/core';
 import AddCircle from '@material-ui/icons/AddCircle';
 import RemoveCircle from '@material-ui/icons/RemoveCircle';
 import NotInterested from '@material-ui/icons/NotInterested';
 
-import {
-  addCombo,
-  removeCombo,
-  changeCombo,
-  Combo,
-  State,
-  store,
-} from '../store';
+import { addCombo, removeCombo, changeCombo, Combo, store } from '../store';
 import Selector from './Selector';
-
-const SelectBreeds = (state: State) => state.breeds || {};
+import type { BreedMap } from './actions';
 
 interface ComboChooserProps {
   combo: Combo;
   lastInList: boolean;
   index: number;
+  breeds: BreedMap;
 }
 export default function ComboChooser({
   combo,
   lastInList,
   index,
+  breeds,
 }: ComboChooserProps) {
   const { breed, subBreed, count } = combo;
-  const breeds = useSelector(SelectBreeds);
-  const isFirstAndOnly = index === 0 && lastInList
+  const isFirstAndOnly = index === 0 && lastInList;
   return (
     <Box m={2}>
-      <Grid container
-      justify='flex-start'>
+      <Grid container justify="flex-start">
         <Grid item>
           <Selector
             name="Breed"
@@ -80,7 +71,7 @@ export default function ComboChooser({
             <Box component="div">
               <IconButton
                 color="primary"
-                aria-label={isFirstAndOnly ? 'clear row': "remove row"}
+                aria-label={isFirstAndOnly ? 'clear row' : 'remove row'}
                 component="span"
                 onClick={() => {
                   // Remove the current combo
@@ -93,7 +84,7 @@ export default function ComboChooser({
                   }
                 }}
               >
-                {isFirstAndOnly ? <NotInterested/>:<RemoveCircle />}
+                {isFirstAndOnly ? <NotInterested /> : <RemoveCircle />}
               </IconButton>
             </Box>
             <Box component="div" visibility={lastInList ? 'visible' : 'hidden'}>
