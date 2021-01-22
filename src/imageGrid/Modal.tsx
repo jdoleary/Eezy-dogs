@@ -18,13 +18,26 @@ export default function Modal() {
         setIsModalOpen(false);
       }}
     >
-      <GridList cellHeight={160} cols={3}>
-        {images.map((img) => (
-          <GridListTile key={img} cols={1}>
+      <GridList cellHeight={160}>
+        {shuffle(images).map((img) => (
+          <GridListTile key={img}>
             <img src={img} />
           </GridListTile>
         ))}
       </GridList>
     </Dialog>
   );
+}
+
+// from: https://stackoverflow.com/a/6274381/4418836
+function shuffle(array: string[]): string[] {
+  const arrayCopy = [...array];
+  var j, x, i;
+  for (i = arrayCopy.length - 1; i > 0; i--) {
+    j = Math.floor(Math.random() * (i + 1));
+    x = arrayCopy[i];
+    arrayCopy[i] = arrayCopy[j];
+    arrayCopy[j] = x;
+  }
+  return arrayCopy;
 }
