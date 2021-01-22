@@ -41,13 +41,16 @@ const breedSlice = createSlice({
     addPair: (state: State, { payload }: { payload: Pair }) => {
       state.pairs = state.pairs.concat(payload);
     },
+    clearImages: (state: State) => {
+      state.images = [];
+    },
   },
   extraReducers: {
     ...breedReducers,
-    ...imageGridReducers
+    ...imageGridReducers,
   },
 });
-export const { addPair, changePair } = breedSlice.actions;
+export const { addPair, changePair, clearImages } = breedSlice.actions;
 
 export const store = configureStore({
   reducer: breedSlice.reducer,
