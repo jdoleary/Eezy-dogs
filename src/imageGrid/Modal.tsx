@@ -7,7 +7,13 @@ import {
   CircularProgress,
 } from '@material-ui/core';
 import { useSelector } from 'react-redux';
-import { SelectImages, SelectLoading, SelectError, store, clearImages } from '../store';
+import {
+  SelectImages,
+  SelectLoading,
+  SelectError,
+  store,
+  clearImages,
+} from '../store';
 import { Alert } from '@material-ui/lab';
 
 export default function Modal() {

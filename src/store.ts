@@ -61,7 +61,7 @@ const breedSlice = createSlice({
     },
     clearImages: (state: State) => {
       // Clear image errors and images in list
-      state.error = {...state.error, images: ''};
+      state.error = { ...state.error, images: '' };
       state.images = [];
     },
   },
