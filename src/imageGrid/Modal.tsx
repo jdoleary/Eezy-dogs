@@ -1,16 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import { Dialog, GridList, GridListTile, Box } from '@material-ui/core';
+import {
+  Dialog,
+  GridList,
+  GridListTile,
+  Box,
+  CircularProgress,
+} from '@material-ui/core';
 import { useSelector } from 'react-redux';
-import { SelectImages } from '../store';
+import { SelectImages, SelectLoading, SelectError } from '../store';
+import { Alert } from '@material-ui/lab';
 
 export default function Modal() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const images = useSelector(SelectImages);
+  const loading = useSelector(SelectLoading);
+  const error = useSelector(SelectError);
   useEffect(() => {
+    if (loading.images) {
+      setIsModalOpen(true);
+    }
     if (images.length !== 0) {
       setIsModalOpen(true);
     }
-  }, [images]);
+  }, [images, loading]);
   return (
     <Dialog
       open={isModalOpen}
@@ -19,13 +31,22 @@ export default function Modal() {
       }}
     >
       <Box p={2}>
-        <GridList cellHeight={160}>
-          {shuffle(images).map((img) => (
-            <GridListTile key={img}>
-              <img src={img} />
-            </GridListTile>
-          ))}
-        </GridList>
+        {error.images ? (
+          <Alert variant="outlined" severity="error">
+            {error.images}
+          </Alert>
+        ) : null}
+        {loading.images ? (
+          <CircularProgress />
+        ) : (
+          <GridList cellHeight={160}>
+            {shuffle(images).map((img) => (
+              <GridListTile key={img}>
+                <img src={img} />
+              </GridListTile>
+            ))}
+          </GridList>
+        )}
       </Box>
     </Dialog>
   );
