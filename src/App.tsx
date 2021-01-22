@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Button, Container } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
+import { Button, Container, Dialog, Box } from '@material-ui/core';
 
 import { Provider, useSelector } from 'react-redux';
 import { store, Pair, State } from './store';
@@ -15,6 +15,7 @@ function App({}: AppProps) {
   useEffect(() => {
     store.dispatch(fetchAllBreeds());
   }, []);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <div className="App">
       <Provider store={store}>
@@ -22,11 +23,22 @@ function App({}: AppProps) {
         <Button
           color="primary"
           onClick={() => {
-            alert('TODO');
+            setIsModalOpen(true);
           }}
         >
           Generate
         </Button>
+        <Dialog
+          open={isModalOpen}
+          onClose={() => {
+            setIsModalOpen(false);
+          }}
+        >
+          <Box p={4}>
+
+          test
+          </Box>
+        </Dialog>
       </Provider>
     </div>
   );
