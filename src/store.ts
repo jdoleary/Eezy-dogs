@@ -3,12 +3,22 @@ import { createSlice, configureStore } from '@reduxjs/toolkit';
 import type { BreedMap } from './breed/actions';
 import breedReducers from './breed/reducers';
 import imageGridReducers from './imageGrid/reducers';
+interface Error {
+  [storeContentKey: string]: string;
+}
+interface Loading {
+  [storeContentKey: string]: boolean;
+}
 export interface State {
+  loading: Loading;
+  error: Error;
   breeds?: BreedMap;
   images: string[];
   combos: Combo[];
 }
 export const SelectCombos = (state: State): Combo[] => state.combos;
+export const SelectLoading = (state: State): Loading => state.loading;
+export const SelectError = (state: State): Error => state.error;
 export const SelectImages = (state: State): string[] => state.images;
 export interface Combo {
   breed: string;
@@ -16,6 +26,8 @@ export interface Combo {
   count: number;
 }
 const initialState: State = {
+  loading: {},
+  error: {},
   breeds: undefined,
   images: [],
   combos: [{ breed: '', subBreed: '', count: 1 }],

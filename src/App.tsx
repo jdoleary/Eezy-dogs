@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import { Button, Container } from '@material-ui/core';
+import { Button, CircularProgress, Container, Box } from '@material-ui/core';
 
 import { Provider, useSelector } from 'react-redux';
-import { store, SelectCombos, clearImages } from './store';
+import { store, SelectCombos, SelectLoading, clearImages } from './store';
 import { fetchAllBreeds } from './breed/actions';
 import { fetchImages } from './imageGrid/actions';
 import BreedComboChooser from './breed/ComboChooser';
@@ -19,11 +19,23 @@ function App({}: AppProps) {
   return (
     <div className="App">
       <Provider store={store}>
-        <Choosers />
-        <GenerateButton />
-        <Modal />
+        <Box p={2}>
+          <Main />
+        </Box>
       </Provider>
     </div>
+  );
+}
+function Main() {
+  const loading = useSelector(SelectLoading);
+  return loading.breeds ? (
+    <CircularProgress />
+  ) : (
+    <>
+      <Choosers />
+      <GenerateButton />
+      <Modal />
+    </>
   );
 }
 function GenerateButton() {
@@ -34,9 +46,7 @@ function GenerateButton() {
       onClick={() => {
         // Remove previous images
         store.dispatch(clearImages());
-        for (let combo of combos) {
-          store.dispatch(fetchImages(combo));
-        }
+        store.dispatch(fetchImages(combos));
       }}
     >
       Generate
