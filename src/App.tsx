@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import { Button, Container } from '@material-ui/core';
 
 import { Provider, useSelector } from 'react-redux';
-import { store, addPair, Pair, State } from './store';
+import { store, Pair, State } from './store';
 import {fetchAllBreeds} from './breed/actions'
 import BreedPairChooser from './breed/PairChooser'
 import './App.css';
@@ -22,9 +22,7 @@ function App({}: AppProps) {
         <Button
           color="primary"
           onClick={() => {
-            store.dispatch(
-              addPair({ breed: 'one', subBreed: 'two', count: 4 }),
-            );
+            alert('TODO')
           }}
         >
           Generate
@@ -39,7 +37,7 @@ function Choosers() {
     <Container maxWidth="md">
       {pairs.map((p, i) => {
         return (
-          <BreedPairChooser key={`${p.breed}-${p.subBreed}`} breed={p.breed} includeAddBtn={i === pairs.length-1}/>
+          <BreedPairChooser key={`${p.breed}-${p.subBreed}`} pair={p} index={i} includeAddBtn={i === pairs.length-1}/>
         );
       })}
     </Container>

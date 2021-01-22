@@ -25,6 +25,15 @@ const breedSlice = createSlice({
   name: 'breeds',
   initialState,
   reducers: {
+    changePair: (state:State, {payload}: {payload:{pair:Pair,index:number}}) => {
+      const {pair, index} = payload;
+      state.pairs = state.pairs.map((p,i) => {
+        if(i === index){
+          return pair
+        }
+        return p
+      })
+    },
     addPair: (state: State, { payload }: { payload: Pair }) => {
       state.pairs = state.pairs.concat(payload);
     },
@@ -33,7 +42,7 @@ const breedSlice = createSlice({
     ...breedReducers
   },
 });
-export const { addPair } = breedSlice.actions;
+export const { addPair, changePair } = breedSlice.actions;
 
 export const store = configureStore({
   reducer: breedSlice.reducer,
