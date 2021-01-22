@@ -1,8 +1,4 @@
-
-import {
-  createAsyncThunk,
-  AsyncThunk,
-} from '@reduxjs/toolkit';
+import { createAsyncThunk, AsyncThunk } from '@reduxjs/toolkit';
 
 export interface BreedMap {
   [breed: string]: string[];
