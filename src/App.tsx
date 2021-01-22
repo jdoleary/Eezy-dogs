@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Container, Dialog, Box } from '@material-ui/core';
+import React, { useEffect } from 'react';
+import { Button, Container } from '@material-ui/core';
 
 import { Provider, useSelector } from 'react-redux';
-import { store, Pair, State } from './store';
+import { store, SelectPairs } from './store';
 import { fetchAllBreeds } from './breed/actions';
+import {fetchImages} from './imageGrid/actions';
 import BreedPairChooser from './breed/PairChooser';
+import Modal from './imageGrid/Modal'
 import './App.css';
 
-const SelectPairs = (state: State): Pair[] => state.pairs;
 
 interface AppProps {}
 
@@ -15,7 +16,6 @@ function App({}: AppProps) {
   useEffect(() => {
     store.dispatch(fetchAllBreeds());
   }, []);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <div className="App">
       <Provider store={store}>
@@ -23,19 +23,13 @@ function App({}: AppProps) {
         <Button
           color="primary"
           onClick={() => {
-            setIsModalOpen(true);
+            // setIsModalOpen(true);
+          store.dispatch(fetchImages({breed:'african',subBreed:'',count:3}));
           }}
         >
           Generate
         </Button>
-        <Dialog
-          open={isModalOpen}
-          onClose={() => {
-            setIsModalOpen(false);
-          }}
-        >
-          <Box p={4}>test</Box>
-        </Dialog>
+        <Modal/>
       </Provider>
     </div>
   );
