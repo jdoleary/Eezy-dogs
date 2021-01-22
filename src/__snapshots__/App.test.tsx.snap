@@ -334,6 +334,7 @@ exports[`<App> renders learn react link 1`] = `
             </div>
             <div
               className="MuiBox-root MuiBox-root-9"
+              data-test-id="plus-icon"
             >
               <span
                 aria-disabled={false}

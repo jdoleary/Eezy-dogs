@@ -87,7 +87,11 @@ export default function ComboChooser({
                 {isFirstAndOnly ? <NotInterested /> : <RemoveCircle />}
               </IconButton>
             </Box>
-            <Box component="div" visibility={lastInList ? 'visible' : 'hidden'}>
+            <Box
+              component="div"
+              data-test-id="plus-icon"
+              visibility={lastInList ? 'visible' : 'hidden'}
+            >
               <IconButton
                 color="primary"
                 aria-label="add row"
