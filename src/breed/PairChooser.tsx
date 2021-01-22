@@ -45,8 +45,8 @@ export default function PairChooser({
           }}
         />
         <TextField
-          variant='outlined'
-          type='number'
+          variant="outlined"
+          type="number"
           value={count}
           onChange={(event: any) => {
             store.dispatch(

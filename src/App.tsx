@@ -34,10 +34,7 @@ function App({}: AppProps) {
             setIsModalOpen(false);
           }}
         >
-          <Box p={4}>
-
-          test
-          </Box>
+          <Box p={4}>test</Box>
         </Dialog>
       </Provider>
     </div>
