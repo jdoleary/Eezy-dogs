@@ -22,7 +22,7 @@ export default function Modal() {
   const error = useSelector(SelectError);
   return (
     <Dialog
-      open={images.length !== 0 || !!error.images}
+      open={images.length !== 0 || !!error.images || loading.images}
       onClose={() => {
         store.dispatch(clearImages());
       }}
