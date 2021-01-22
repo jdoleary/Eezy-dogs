@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Dialog, GridList, GridListTile } from '@material-ui/core';
+import { Dialog, GridList, GridListTile, Box } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import { SelectImages } from '../store';
 
@@ -18,13 +18,15 @@ export default function Modal() {
         setIsModalOpen(false);
       }}
     >
-      <GridList cellHeight={160}>
-        {shuffle(images).map((img) => (
-          <GridListTile key={img}>
-            <img src={img} />
-          </GridListTile>
-        ))}
-      </GridList>
+      <Box p={2}>
+        <GridList cellHeight={160}>
+          {shuffle(images).map((img) => (
+            <GridListTile key={img}>
+              <img src={img} />
+            </GridListTile>
+          ))}
+        </GridList>
+      </Box>
     </Dialog>
   );
 }
