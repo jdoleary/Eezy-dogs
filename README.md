@@ -1,8 +1,10 @@
 # Eezy dogs demo
 
-## Getting starting
-Run for development
-```
-npm i
-npm start
-```
+## Install
+`npm i`
+
+## Develop
+`npm start`
+
+## Build
+`npm run build`
