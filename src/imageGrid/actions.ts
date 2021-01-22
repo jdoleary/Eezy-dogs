@@ -14,5 +14,4 @@ export const fetchImages: AsyncThunk<
   async (pair:Pair) =>
     await fetch(`https://dog.ceo/api/breed/${pair.breed}${pair.subBreed ? '/' + pair.subBreed : ''}/images/random/${pair.count}`)
       .then((response) => response.json())
-      .then((json) => json.message),
 );

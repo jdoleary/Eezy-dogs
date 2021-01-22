@@ -5,8 +5,11 @@ import type { State } from '../store';
 export default {
   [fetchImages.fulfilled.toString()]: (
     state: State,
-    action: PayloadAction<string[]>,
+    action: PayloadAction<{status:string, message:string[]}>,
   ) => {
-    state.images = [...state.images, ...action.payload]
+    const {status, message} = action.payload
+    if(status === 'success'){
+      state.images = [...state.images, ...message]
+    }
   },
 };

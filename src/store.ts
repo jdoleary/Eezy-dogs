@@ -9,6 +9,7 @@ export interface State {
   pairs: Pair[];
 }
 export const SelectPairs = (state: State): Pair[] => state.pairs;
+export const SelectImages = (state: State): string[] => state.images;
 export interface Pair {
   breed: string;
   subBreed: string;

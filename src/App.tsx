@@ -32,7 +32,6 @@ function GenerateButton() {
         <Button
           color="primary"
           onClick={() => {
-            // setIsModalOpen(true);
             for(let pair of pairs){
               store.dispatch(fetchImages(pair));
             }
