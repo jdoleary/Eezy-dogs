@@ -1,4 +1,3 @@
-
 import { createAsyncThunk, AsyncThunk } from '@reduxjs/toolkit';
 import type { Pair } from 'src/store';
 

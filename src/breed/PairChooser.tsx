@@ -63,7 +63,7 @@ export default function PairChooser({
             aria-label="upload picture"
             component="span"
             onClick={() => {
-              store.dispatch(addPair({ breed: '', subBreed: '', count: 0 }));
+              store.dispatch(addPair({ breed: '', subBreed: '', count: 1 }));
             }}
           >
             <AddCircle />

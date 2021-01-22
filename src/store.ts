@@ -17,14 +17,13 @@ export interface Pair {
 }
 const initialState: State = {
   breeds: undefined,
-  images:[],
+  images: [],
   pairs: [
-    { breed: 'bulldog', subBreed: '', count: 0 },
-    { breed: '', subBreed: '', count: 0 },
+    { breed: '', subBreed: '', count: 1 },
   ],
 };
 const breedSlice = createSlice({
-  name: 'breeds',
+  name: 'eezy-demo',
   initialState,
   reducers: {
     changePair: (
