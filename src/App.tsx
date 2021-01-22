@@ -1,5 +1,13 @@
 import React, { useEffect } from 'react';
-import { Button, CircularProgress, Container, Box, AppBar, Typography, Toolbar } from '@material-ui/core';
+import {
+  Button,
+  CircularProgress,
+  Container,
+  Box,
+  AppBar,
+  Typography,
+  Toolbar,
+} from '@material-ui/core';
 
 import { Provider, useSelector } from 'react-redux';
 import { store, SelectCombos, SelectLoading, clearImages } from './store';
@@ -19,12 +27,10 @@ function App({}: AppProps) {
   return (
     <div className="App">
       <AppBar position="static">
-      <Toolbar>
-        <Typography variant="h6">
-          Dog Breeds
-        </Typography>
-      </Toolbar>
-    </AppBar>
+        <Toolbar>
+          <Typography variant="h6">Dog Breeds</Typography>
+        </Toolbar>
+      </AppBar>
       <Provider store={store}>
         <Box p={2}>
           <Main />
